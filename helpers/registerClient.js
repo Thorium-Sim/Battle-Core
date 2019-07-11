@@ -1,5 +1,5 @@
 const getClient = require("./graphqlClient");
-const availableCards = ["Test Screen"];
+const availableCards = ["BattleCore"];
 
 module.exports = function() {
   const client = getClient();

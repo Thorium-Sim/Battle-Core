@@ -48,7 +48,6 @@ class Client {
         this.simulator = clientObj.simulator;
         this.station = clientObj.station;
         App.emit("clientChange", this);
-
         // // Set up the subscription
         graphQLClient
           .subscribe({
