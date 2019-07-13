@@ -35,6 +35,7 @@ module.exports = (address, port, clientId) => {
       shields.setup(currentSimId)
       sensorContacts.setup(currentSimId)
       targeting.setup(currentSimId)
+      sensorsInfo.setup(currentSimId)
     } else {
       currentSimId = "";
       phasers.setup("")
@@ -43,45 +44,72 @@ module.exports = (address, port, clientId) => {
       shields.setup("")
       sensorContacts.setup("")
       targeting.setup("")
+      sensorsInfo.setup("")
     }
   });
 
+  /* Subscriptions */
   //Instantiate the phaser object
   const phasers = require("./phasers");
   App.on("phaserChange", phaserObj => {
-    console.log("phaserChange",phaserObj)
+    console.log("phaserChange", phaserObj)
   });
 
   //Instantiate the torpedo object
   const torpedos = require("./torpedos");
   App.on("torpedoChange", torpedoObj => {
-    console.log("torpedoChange",torpedoObj)
+    console.log("torpedoChange", torpedoObj)
   });
 
   //Instantiate the thruster object
   const thrusters = require("./thrusters");
   App.on("thrusterChange", thrusterObj => {
-    console.log("thrusterChange",thrusterObj)
+    console.log("thrusterChange", thrusterObj)
   });
 
   //Instantiate the shield object
   const shields = require("./shields");
+  let shieldIds = {};
   App.on("shieldChange", shieldObj => {
-    console.log("shieldChange",shieldObj)
+    //console.log("shieldChange", shieldObj)
+    for (let x = 0; x < shieldObj.length; x++) {
+      shieldIds[shieldObj[x].name] = shieldObj[x].id
+    }
   });
 
-  //Instantiate the shield object
+  //Instantiate the sensor object
   const sensorContacts = require("./sensorContacts");
   App.on("sensorContactChange", sensorContactObj => {
-    console.log("sensorContactChange",sensorContactObj)
+    console.log("sensorContactChange", sensorContactObj)
   });
 
-  //Instantiate the shield object
+  //Instantiate the targeting object
   const targeting = require("./targeting");
   App.on("targetingChange", targetingObj => {
-    console.log("targetingChange",targetingObj)
+    console.log("targetingChange", targetingObj)
   });
 
+
+  /* Mutations */
+  //Instantiate the sensorInfo object
+  const sensorsInfo = require("./sensorsInfo");
+  setTimeout(function() {
+    sensorsInfo.send("woot!", true)
+  }, 3000)
+
+  //Shields already instantiated, we call it here
+  setTimeout(function() {
+    shields.hit(shieldIds["Fore"])
+  }, 1000)
+  setTimeout(function() {
+    shields.hit(shieldIds["Aft"])
+  }, 2000)
+  setTimeout(function() {
+    shields.hit(shieldIds["Port"])
+  }, 3000)
+  setTimeout(function() {
+    shields.hit(shieldIds["Starboard"])
+  }, 4000)
 
 
 };

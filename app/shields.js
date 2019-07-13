@@ -6,7 +6,42 @@ const { App } = require("./index");
 
 var theObservable
 var simulatorId = ""
+var shieldsIntegrity = {}
+var mutationData = []
 
+
+const QUERY = gql `
+query Shields (
+    $simulatorId:ID!
+) {
+  shields (
+    simulatorId: $simulatorId
+  ) {
+    id
+    simulatorId
+    type
+    name
+    id
+    stealthFactor
+    position
+    frequency
+    state
+    integrity
+  }
+}
+`
+
+const MUTATION = gql `
+mutation SetShields(
+  $id: ID!,
+  $integrity: Float
+) {
+  shieldIntegritySet(
+    id: $id,
+    integrity: $integrity
+  )
+}
+`;
 
 const SUBSCRIPTION = gql `
 subscription ShieldsUpdate($simulatorId: ID!) {
@@ -25,8 +60,6 @@ subscription ShieldsUpdate($simulatorId: ID!) {
     }
     displayName
     stealthFactor
-    heat
-    coolant
     position
     frequency
     state
@@ -54,6 +87,16 @@ class Shield {
     }
     if (simulatorId && simulatorId != "") {
       subscribe();
+      setShieldsId();
+    }
+  }
+  hit(shieldId) {
+    if (shieldId && shieldsIntegrity[shieldId]) {
+      let amount = ((Math.random() / 10) + .05)
+      let newIntegrity = shieldsIntegrity[shieldId] - amount
+      mutationData["id"] = shieldId;
+      mutationData["integrity"] = (newIntegrity);
+      sendMutation();
     }
   }
 }
@@ -79,7 +122,11 @@ function subscribe() {
       theObservable = observable;
       observable.subscribe(
         ({ data }) => {
-          App.emit("shieldChange", data);
+          shieldsIntegrity = {}
+          for (let x = 0; x < data.shieldsUpdate.length; x++) {
+            shieldsIntegrity[data.shieldsUpdate[x].id] = data.shieldsUpdate[x].integrity
+          }
+          App.emit("shieldChange", data.shieldsUpdate);
         },
         error => {
           console.log("Error: ", error);
@@ -87,4 +134,38 @@ function subscribe() {
       );
     })
     .catch(err => console.error(err));
+}
+
+
+
+function setShieldsId() {
+  if (!simulatorId || simulatorId == "") {
+    shieldsIntegrity = {}
+  } else {
+    const graphQLClient = getClient();
+    graphQLClient
+      .query({
+        query: QUERY,
+        variables: { simulatorId }
+      })
+      .then(({ data }) => {
+        App.emit("shieldChange", data.shields);
+        shieldsIntegrity = {}
+        for (let x = 0; x < data.shields.length; x++) {
+          shieldsIntegrity[data.shields[x].id] = data.shields[x].integrity
+        }
+      })
+      .catch(err => console.error(err));
+  }
+}
+
+
+
+function sendMutation() {
+  const graphQLClient = getClient();
+  graphQLClient
+    .query({ query: MUTATION, variables: mutationData })
+    .then(() => {
+      console.log("Sent");
+    });
 }
