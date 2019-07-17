@@ -1,11 +1,29 @@
-const getClient = require("../helpers/graphqlClient");
-const { clientId } = require("../index");
+const getClient = require("../../helpers/graphqlClient");
+const { clientId } = require("../../index");
 const gql = require("graphql-tag");
-const { App } = require("./index");
+const { App } = require("../index");
 
 
 var theObservable
 var simulatorId = ""
+
+
+const QUERY = gql `
+query Phasers($simulatorId: ID!) {
+  phasers(simulatorId: $simulatorId) {
+    id
+    simulatorId
+    name
+    beams {
+      id
+      state
+      charge
+      heat
+    }
+    arc
+  }
+}
+`;
 
 
 const SUBSCRIPTION = gql `
@@ -18,6 +36,7 @@ subscription PhasersUpdate($simulatorId: ID!) {
       id
       state
       charge
+      heat
     }
     arc
   }
@@ -54,6 +73,20 @@ function unsubscribe() {
 
 function subscribe() {
   const graphQLClient = getClient();
+
+  graphQLClient
+    .query({
+      query: QUERY,
+      variables: { simulatorId }
+    })
+    .then(({ data }) => {
+        App.emit("phaserChange", data.phasers);
+      },
+      error => {
+        console.log("Error: ", error);
+      })
+    .catch(err => console.error(err));
+
   graphQLClient
     .subscribe({
       query: SUBSCRIPTION,
@@ -63,7 +96,7 @@ function subscribe() {
       theObservable = observable;
       observable.subscribe(
         ({ data }) => {
-          App.emit("phaserChange", data);
+          App.emit("phaserChange", data.phasersUpdate);
         },
         error => {
           console.log("Error: ", error);

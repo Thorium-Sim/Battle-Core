@@ -1,7 +1,7 @@
-const getClient = require("../helpers/graphqlClient");
-const { clientId } = require("../index");
+const getClient = require("../../helpers/graphqlClient");
+const { clientId } = require("../../index");
 const gql = require("graphql-tag");
-const { App } = require("./index");
+const { App } = require("../index");
 
 const queryData = `
 id

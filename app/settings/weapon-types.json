@@ -1,0 +1,32 @@
+{
+	"Laser":
+	{
+		"damageValue": 0.25,
+		"secondsToImpactAtMaxDistance": 0,
+		"thrusterHitChanceReductionRate": 0
+	},
+	"Phaser":
+	{
+		"damageValue": 1,
+		"secondsToImpactAtMaxDistance": 1,
+		"thrusterHitChanceReductionRate": 0
+	},
+	"Low Yield":
+	{
+		"damageValue": 2,
+		"secondsToImpactAtMaxDistance": 12,
+		"thrusterHitChanceReductionRate": 0.111
+	},
+	"High Yield":
+	{
+		"damageValue": 3,
+		"secondsToImpactAtMaxDistance": 16,
+		"thrusterHitChanceReductionRate": 0.143
+	},
+	"Special":
+	{
+		"damageValue": 4,
+		"secondsToImpactAtMaxDistance": 20,
+		"thrusterHitChanceReductionRate": 0.20
+	}
+}

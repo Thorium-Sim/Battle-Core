@@ -1,11 +1,38 @@
-const getClient = require("../helpers/graphqlClient");
-const { clientId } = require("../index");
+const getClient = require("../../helpers/graphqlClient");
+const { clientId } = require("../../index");
 const gql = require("graphql-tag");
-const { App } = require("./index");
+const { App } = require("../index");
 
 
 var theObservable
 var simulatorId = ""
+
+
+const QUERY = gql `
+query Torpedos($simulatorId: ID!) {
+  torpedos(simulatorId: $simulatorId) {
+    id
+    simulatorId
+    name
+    type
+    displayName
+    power {
+      power
+      powerLevels
+    }
+    damage {
+      damaged
+      destroyed
+    }
+    inventory {
+      id
+      type
+    }
+    loaded
+    state
+  }
+}
+`;
 
 
 const SUBSCRIPTION = gql `
@@ -27,7 +54,6 @@ subscription TorpedosUpdate($simulatorId: ID!) {
     inventory {
       id
       type
-      probe
     }
     loaded
     state
@@ -65,6 +91,20 @@ function unsubscribe() {
 
 function subscribe() {
   const graphQLClient = getClient();
+
+  graphQLClient
+    .query({
+      query: QUERY,
+      variables: { simulatorId }
+    })
+    .then(({ data }) => {
+        App.emit("torpedoChange", data.torpedos);
+      },
+      error => {
+        console.log("Error: ", error);
+      })
+    .catch(err => console.error(err));
+
   graphQLClient
     .subscribe({
       query: SUBSCRIPTION,
@@ -74,7 +114,7 @@ function subscribe() {
       theObservable = observable;
       observable.subscribe(
         ({ data }) => {
-          App.emit("torpedoChange", data);
+          App.emit("torpedoChange", data.torpedosUpdate);
         },
         error => {
           console.log("Error: ", error);

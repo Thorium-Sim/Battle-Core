@@ -1,7 +1,7 @@
-const getClient = require("../helpers/graphqlClient");
-const { clientId } = require("../index");
+const getClient = require("../../helpers/graphqlClient");
+const { clientId } = require("../../index");
 const gql = require("graphql-tag");
-const { App } = require("./index");
+const { App } = require("../index");
 
 
 var theObservable
@@ -9,60 +9,49 @@ var simulatorId = ""
 
 
 const SUBSCRIPTION = gql `
-subscription TargetingUpdate($simulatorId: ID!) {
-  targetingUpdate(simulatorId: $simulatorId) {
+subscription ThrustersUpdate($simulatorId: ID!) {
+  rotationChange(simulatorId: $simulatorId) {
     id
     simulatorId
-    type
     name
-    displayName
-    contacts {
-      id
-      class
-      name
-      size
-      targeted
-      system
-      icon
-      picture
-      speed
-      quadrant
+    type
+    direction {
+      x
+      y
+      z
+    }
+    rotation {
+      yaw
+      pitch
+      roll
+    }
+    rotationDelta {
+      yaw
+      pitch
+      roll
+    }
+    rotationRequired {
+      yaw
+      pitch
+      roll
+    }
+    manualThrusters
+    power {
+      power
+      powerLevels
+    }
+    damage {
+      damaged
       destroyed
-      moving
     }
-    classes {
-      id
-      name
-      size
-      icon
-      picture
-      speed
-      quadrant
-      moving
-    }
-    quadrants
-    range
-    coordinateTargeting
-    interference
-    targetedSensorContact {
-      id
-    }
-    calculatedTarget {
-      x
-      y
-      z
-    }
-    enteredTarget {
-      x
-      y
-      z
-    }
+    rotationSpeed
+    movementSpeed
   }
 }
 `;
 
 
-class Targeting {
+class Thruster {
   constructor() {
     if (simulatorId && simulatorId != "") {
       subscribe();
@@ -79,8 +68,8 @@ class Targeting {
   }
 }
 
-const targeting = new Targeting();
-module.exports = targeting;
+const thruster = new Thruster();
+module.exports = thruster;
 
 
 
@@ -100,7 +89,7 @@ function subscribe() {
       theObservable = observable;
       observable.subscribe(
         ({ data }) => {
-          App.emit("targetingChange", data);
+          App.emit("thrusterChange", data);
         },
         error => {
           console.log("Error: ", error);

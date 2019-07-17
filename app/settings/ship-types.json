@@ -1,0 +1,587 @@
+{
+	"user":
+	{
+		"isUserShip": "yes",
+		"shieldResiliency": 1,
+		"targetingRange": 0,
+		"flightSkill": 0,
+		"thrusterEffectivenessAdjustment": 1,
+		"weaponsSkill": 0,
+		"systemsList":
+		{
+			"fore": [
+				"Fore Shield Generator",
+				"Hull F1",
+				"Phasers",
+				"Hull F2",
+				"Torpedos",
+				"Hull F3",
+				"LR Comms",
+				"SR Comms",
+				"Hull F4",
+				"Sensors",
+				"Hull F5",
+				"Probe Launcher"
+			],
+			"port": [
+				"Port Shield Generator",
+				"Hull P1",
+				"Phasers",
+				"Hull P2",
+				"Torpedos",
+				"Hull P3",
+				"Navigation",
+				"Impulse Engines",
+				"Hull P4",
+				"Signal Jammer",
+				"Hull P5",
+				"Compter Core"
+			],
+			"starboard": [
+				"Starboard Shield Generator",
+				"Hull S1",
+				"LR Comms",
+				"Hull S2",
+				"Sensors",
+				"Probe Launcher",
+				"Hull S3",
+				"Jump Drive",
+				"Hull S4",
+				"Reactor",
+				"Hull S5",
+				"Life Support"
+			],
+			"aft": [
+				"Aft Shield Generator",
+				"Hull A1",
+				"Impulse Engines",
+				"Impulse Engines",
+				"Hull A2",
+				"Jump Drive",
+				"Hull A3",
+				"Reactor",
+				"Hull A4",
+				"Life Support",
+				"Life Support"
+				"Hull A5",
+			]
+		},
+		"weaponsList":
+		{}
+	},
+	"Tiny":
+	{
+		"isUserShip": "no",
+		"shieldResiliency": 0.5,
+		"targetingRange": 0.5,
+		"flightSkill": 1,
+		"thrusterEffectivenessAdjustment": 1.5,
+		"weaponsSkill": 0.5,
+		"systemsList":
+		{
+			"fore": [
+				"Weapons",
+				"Shields",
+				"Navigation"
+			],
+			"port": [
+				"Reactor",
+				"Thrusters",
+				"Short Range Comms"
+			],
+			"starboard": [
+				"Reactor",
+				"Thrusters",
+				"Long Range Comms"
+			],
+			"aft": [
+				"Life Support",
+				"Engines",
+				"Engines"
+			]
+		},
+		"weaponsList":
+		{
+			"Phaser Bank": ["Phaser", "Laser"]
+		}
+	},
+	"Small":
+	{
+		"isUserShip": "no",
+		"shieldResiliency": 0.75,
+		"targetingRange": 0.75,
+		"flightSkill": 1,
+		"thrusterEffectivenessAdjustment": 1.25,
+		"weaponsSkill": 0.75,
+		"systemsList":
+		{
+			"fore": [
+				"Phasers",
+				"Torpedos",
+				"Hull Plate F1",
+				"Navigation",
+				"Shields",
+				"Hull Plate F2"
+			],
+			"port": [
+				"Short Range Comms",
+				"Long Range Comms",
+				"Hull Plate P1",
+				"Shields",
+				"Fusion Engines",
+				"Hull Plate P2"
+			],
+			"starboard": [
+				"Signal Jammer",
+				"Thrusters",
+				"Hull Plate S1",
+				"Shields",
+				"Life Support",
+				"Hull Plate S2"
+			],
+			"aft": [
+				"Main Reactor",
+				"Main Reactor",
+				"Hull Plate A1",
+				"Fusion Engines",
+				"Fusion Engines",
+				"Hull Plate A2"
+			]
+		},
+		"weaponsList":
+		{
+			"Phaser Bank": ["Phaser", "Laser"],
+			"Torpedo Tube": ["Low Yield", "High Yield"]
+		}
+	},
+	"Medium":
+	{
+		"isUserShip": "no",
+		"shieldResiliency": 1,
+		"targetingRange": 1,
+		"flightSkill": 1,
+		"thrusterEffectivenessAdjustment": 1,
+		"weaponsSkill": 1,
+		"systemsList":
+		{
+			"fore": [
+				"Fore Shield Generator",
+				"Hull Plate F1",
+				"Signal Jammer",
+				"Hull Plate F2",
+				"Phasers",
+				"Hull Plate F3",
+				"Sensors",
+				"Hull Plate F4",
+				"Short Range Comm",
+				"Hull Plate F5",
+				"Long Range Comm",
+				"Hull Plate F6"
+			],
+			"port": [
+				"Port Shield Generator",
+				"Hull Plate P1",
+				"Navigation",
+				"Hull Plate P2",
+				"Thrusters",
+				"Hull Plate P3",
+				"Torpedos",
+				"Hull Plate P4",
+				"Phasers",
+				"Hull Plate P5",
+				"Jump Drive",
+				"Hull Plate P6"
+			],
+			"starboard": [
+				"Starboard Shield Generator",
+				"Hull Plate S1",
+				"Signal Jammer",
+				"Hull Plate S2",
+				"Power Grid",
+				"Hull Plate S3",
+				"Thrusters",
+				"Hull Plate S4",
+				"Torpedos",
+				"Hull Plate S5",
+				"Jump Drive",
+				"Hull Plate S6"
+			],
+			"aft": [
+				"Aft Shield Generator",
+				"Hull Plate A1",
+				"TOW cable",
+				"Hull Plate A2",
+				"Fusion Engines",
+				"Hull Plate A3",
+				"Jump Drive",
+				"Hull Plate A4",
+				"Main Reactor",
+				"Hull Plate A5",
+				"Life Support",
+				"Hull Plate A6"
+			]
+		},
+		"weaponsList":
+		{
+			"Phaser Bank 1": ["Phaser", "Laser"],
+			"Phaser Bank 2": ["Phaser", "Laser"],
+			"Torpedo Tube 1": ["Low Yield", "High Yield"],
+			"Torpedo Tube 2": ["Low Yield", "High Yield"]
+		}
+	},
+	"Large":
+	{
+		"isUserShip": "no",
+		"shieldResiliency": 1.5,
+		"targetingRange": 1.5,
+		"flightSkill": 1,
+		"thrusterEffectivenessAdjustment": 0.75,
+		"weaponsSkill": 1.5,
+		"systemsList":
+		{
+			"fore": [
+				"Fore Shield Generator",
+				"Hull Plate F1",
+				"Signal Jammer",
+				"Hull Plate F2",
+				"Phasers",
+				"Hull Plate F3",
+				"Sensors",
+				"Hull Plate F4",
+				"Short Range Comm",
+				"Hull Plate F5",
+				"Long Range Comm",
+				"Hull Plate F6"
+			],
+			"port": [
+				"Port Shield Generator",
+				"Hull Plate P1",
+				"Navigation",
+				"Hull Plate P2",
+				"Thrusters",
+				"Hull Plate P3",
+				"Torpedos",
+				"Hull Plate P4",
+				"Phasers",
+				"Hull Plate P5",
+				"Jump Drive",
+				"Hull Plate P6"
+			],
+			"starboard": [
+				"Starboard Shield Generator",
+				"Hull Plate S1",
+				"Signal Jammer",
+				"Hull Plate S2",
+				"Power Grid",
+				"Hull Plate S3",
+				"Thrusters",
+				"Hull Plate S4",
+				"Torpedos",
+				"Hull Plate S5",
+				"Jump Drive",
+				"Hull Plate S6"
+			],
+			"aft": [
+				"Aft Shield Generator",
+				"Hull Plate A1",
+				"TOW cable",
+				"Hull Plate A2",
+				"Fusion Engines",
+				"Hull Plate A3",
+				"Jump Drive",
+				"Hull Plate A4",
+				"Main Reactor",
+				"Hull Plate A5",
+				"Life Support",
+				"Hull Plate A6"
+			]
+		},
+		"weaponsList":
+		{
+			"Phaser Bank 1": ["Phaser", "Laser"],
+			"Phaser Bank 2": ["Phaser", "Laser"],
+			"Phaser Bank 3": ["Phaser", "Laser"],
+			"Phaser Bank 4": ["Phaser", "Laser"],
+			"Torpedo Tube 1": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 2": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 3": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 4": ["Low Yield", "High Yield", "Special"]
+		}
+	},
+	"Colossal":
+	{
+		"isUserShip": "no",
+		"shieldResiliency": 1.75,
+		"targetingRange": 1.75,
+		"flightSkill": 1,
+		"thrusterEffectivenessAdjustment": 0.4,
+		"weaponsSkill": 1.75,
+		"systemsList":
+		{
+			"fore": [
+				"Fore Shield Generator",
+				"Hull Plate F1",
+				"Signal Jammer",
+				"Hull Plate F2",
+				"Phasers",
+				"Hull Plate F3",
+				"Sensors",
+				"Hull Plate F4",
+				"Short Range Comm",
+				"Hull Plate F5",
+				"Long Range Comm",
+				"Hull Plate F6"
+			],
+			"port": [
+				"Port Shield Generator",
+				"Hull Plate P1",
+				"Navigation",
+				"Hull Plate P2",
+				"Thrusters",
+				"Hull Plate P3",
+				"Torpedos",
+				"Hull Plate P4",
+				"Phasers",
+				"Hull Plate P5",
+				"Jump Drive",
+				"Hull Plate P6"
+			],
+			"starboard": [
+				"Starboard Shield Generator",
+				"Hull Plate S1",
+				"Signal Jammer",
+				"Hull Plate S2",
+				"Power Grid",
+				"Hull Plate S3",
+				"Thrusters",
+				"Hull Plate S4",
+				"Torpedos",
+				"Hull Plate S5",
+				"Jump Drive",
+				"Hull Plate S6"
+			],
+			"aft": [
+				"Aft Shield Generator",
+				"Hull Plate A1",
+				"TOW cable",
+				"Hull Plate A2",
+				"Fusion Engines",
+				"Hull Plate A3",
+				"Jump Drive",
+				"Hull Plate A4",
+				"Main Reactor",
+				"Hull Plate A5",
+				"Life Support",
+				"Hull Plate A6"
+			]
+		},
+		"weaponsList":
+		{
+			"Phaser Bank 1": ["Phaser", "Laser"],
+			"Phaser Bank 2": ["Phaser", "Laser"],
+			"Phaser Bank 3": ["Phaser", "Laser"],
+			"Phaser Bank 4": ["Phaser", "Laser"],
+			"Torpedo Tube 1": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 2": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 3": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 4": ["Low Yield", "High Yield", "Special"]
+		}
+	},
+	"Station":
+	{
+		"isUserShip": "no",
+		"shieldResiliency": 3,
+		"targetingRange": 2,
+		"flightSkill": 1,
+		"thrusterEffectivenessAdjustment": 0.1,
+		"weaponsSkill": 1.5,
+		"systemsList":
+		{
+			"fore": [
+				"Fore Shield Generator",
+				"Hull Plate F1",
+				"Signal Jammer",
+				"Hull Plate F2",
+				"Phasers",
+				"Hull Plate F3",
+				"Sensors",
+				"Hull Plate F4",
+				"Short Range Comm",
+				"Hull Plate F5",
+				"Long Range Comm",
+				"Hull Plate F6"
+			],
+			"port": [
+				"Port Shield Generator",
+				"Hull Plate P1",
+				"Navigation",
+				"Hull Plate P2",
+				"Thrusters",
+				"Hull Plate P3",
+				"Torpedos",
+				"Hull Plate P4",
+				"Phasers",
+				"Hull Plate P5",
+				"Jump Drive",
+				"Hull Plate P6"
+			],
+			"starboard": [
+				"Starboard Shield Generator",
+				"Hull Plate S1",
+				"Signal Jammer",
+				"Hull Plate S2",
+				"Power Grid",
+				"Hull Plate S3",
+				"Thrusters",
+				"Hull Plate S4",
+				"Torpedos",
+				"Hull Plate S5",
+				"Jump Drive",
+				"Hull Plate S6"
+			],
+			"aft": [
+				"Aft Shield Generator",
+				"Hull Plate A1",
+				"TOW cable",
+				"Hull Plate A2",
+				"Fusion Engines",
+				"Hull Plate A3",
+				"Jump Drive",
+				"Hull Plate A4",
+				"Main Reactor",
+				"Hull Plate A5",
+				"Life Support",
+				"Hull Plate A6"
+			]
+		},
+		"weaponsList":
+		{
+			"Phaser Bank 1": ["Phaser", "Laser"],
+			"Phaser Bank 2": ["Phaser", "Laser"],
+			"Phaser Bank 3": ["Phaser", "Laser"],
+			"Phaser Bank 4": ["Phaser", "Laser"],
+			"Phaser Bank 5": ["Phaser", "Laser"],
+			"Phaser Bank 6": ["Phaser", "Laser"],
+			"Phaser Bank 7": ["Phaser", "Laser"],
+			"Phaser Bank 8": ["Phaser", "Laser"],
+			"Phaser Bank 9": ["Phaser", "Laser"],
+			"Phaser Bank 10": ["Phaser", "Laser"],
+			"Phaser Bank 11": ["Phaser", "Laser"],
+			"Phaser Bank 12": ["Phaser", "Laser"],
+			"Torpedo Tube 1": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 2": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 3": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 4": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 5": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 6": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 7": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 8": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 9": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 10": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 11": ["Low Yield", "High Yield", "Special"],
+			"Torpedo Tube 12": ["Low Yield", "High Yield", "Special"]
+		}
+	},
+	"Small Asteroid":
+	{
+		"isUserShip": "no",
+		"shieldResiliency": 0,
+		"targetingRange": 0,
+		"flightSkill": 0,
+		"thrusterEffectivenessAdjustment": 0,
+		"weaponsSkill": 0,
+		"systemsList":
+		{
+			"fore": [
+				"Rock"
+			],
+			"port": [
+				"Rock"
+			],
+			"starboard": [
+				"Rock"
+			],
+			"aft": [
+				"Rock"
+			]
+		},
+		"weaponsList":
+		{}
+	},
+	"Asteroid":
+	{
+		"isUserShip": "no",
+		"shieldResiliency": 0,
+		"targetingRange": 0,
+		"flightSkill": 0,
+		"thrusterEffectivenessAdjustment": 0,
+		"weaponsSkill": 0,
+		"systemsList":
+		{
+			"fore": [
+				"Rock 1",
+				"Rock 2",
+				"Rock 3"
+			],
+			"port": [
+				"Rock 1",
+				"Rock 2",
+				"Rock 3"
+			],
+			"starboard": [
+				"Rock 1",
+				"Rock 2",
+				"Rock 3"
+			],
+			"aft": [
+				"Rock 1",
+				"Rock 2",
+				"Rock 3"
+			]
+		},
+		"weaponsList":
+		{}
+	},
+	"Large Asteroid":
+	{
+		"isUserShip": "no",
+		"shieldResiliency": 0,
+		"targetingRange": 0,
+		"flightSkill": 0,
+		"thrusterEffectivenessAdjustment": 0,
+		"weaponsSkill": 0,
+		"systemsList":
+		{
+			"fore": [
+				"Rock 1",
+				"Rock 2",
+				"Rock 3",
+				"Rock 4",
+				"Rock 5"
+			],
+			"port": [
+				"Rock 1",
+				"Rock 2",
+				"Rock 3",
+				"Rock 4",
+				"Rock 5"
+			],
+			"starboard": [
+				"Rock 1",
+				"Rock 2",
+				"Rock 3",
+				"Rock 4",
+				"Rock 5"
+			],
+			"aft": [
+				"Rock 1",
+				"Rock 2",
+				"Rock 3",
+				"Rock 4",
+				"Rock 5"
+			]
+		},
+		"weaponsList":
+		{}
+	},
+}
