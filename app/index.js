@@ -162,26 +162,22 @@ module.exports = (address, port, clientId) => {
 
   /* Mutations */
   //Instantiate the sensorInfo object
-  const sensorsInfo = require("./thorium-components/sensorsInfo");
-  /*
-  setTimeout(function() {
-    sensorsInfo.send("woot!", true)
-  }, 3000)
 
-  //Shields already instantiated, we call it here
-  setTimeout(function() {
-    shields.hit(shieldIds["Fore"])
-  }, 1000)
-  setTimeout(function() {
-    shields.hit(shieldIds["Aft"])
-  }, 2000)
-  setTimeout(function() {
-    shields.hit(shieldIds["Port"])
-  }, 3000)
-  setTimeout(function() {
-    shields.hit(shieldIds["Starboard"])
-  }, 4000)
-  */
+  /*
+    //Shields already instantiated, we call it here
+    setTimeout(function() {
+      shields.hit(shieldIds["Fore"])
+    }, 1000)
+    setTimeout(function() {
+      shields.hit(shieldIds["Aft"])
+    }, 2000)
+    setTimeout(function() {
+      shields.hit(shieldIds["Port"])
+    }, 3000)
+    setTimeout(function() {
+      shields.hit(shieldIds["Starboard"])
+    }, 4000)
+    */
 
 
 
@@ -189,6 +185,20 @@ module.exports = (address, port, clientId) => {
     delete interactionList[interactionObj.interactionId]
     console.log(interactionObj)
   });
+
+  const sensorsInfo = require("./thorium-components/sensorsInfo");
+  App.on("newInteraction", interactionClass => {
+    if ((interactionClass.getDestinationShip()).getID() == "user") {
+      let timeToImpact = Math.round(interactionClass.calculateTimeToImpact() / 100) / 10
+      if (timeToImpact > 2) {
+        sensorsInfo.send("Incoming " + interactionClass.getWeaponType() + " fire!  Impact in " + timeToImpact + " seconds", true)
+      } else {
+        sensorsInfo.send(interactionClass.getWeaponType() + " impact detected", true)
+      }
+    }
+  });
+
+
 
 
 

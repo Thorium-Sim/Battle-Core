@@ -21,10 +21,12 @@ module.exports = class Interaction {
 		this.destinationShip = destinationShip_
 		this.weaponType = weaponType_
 		this.isCancelled = false;
+		const { App } = require("../index");
+		App.emit("newInteraction", this);
 		setTimeout(() => {
 			const { App } = require("../index");
 			App.emit("interactionResult", calculateImpactChance(this));
-		}, calculateTimeToImpact(this))
+		}, this.calculateTimeToImpact())
 	}
 	addThrusterAdjustment(thrusterValues) {
 		let currentMillisec = 100 //(new Date).getMilliseconds()
@@ -56,18 +58,27 @@ module.exports = class Interaction {
 	getId() {
 		return this.id
 	}
+	getWeaponType() {
+		return this.weaponType
+	}
+	getDestinationShip() {
+		return this.destinationShip
+	}
+
+	calculateTimeToImpact() {
+		//Determine Distance between both ships
+		//Determine weapon type (and consequently, speed)
+		//Multiply distance by weapon type speed
+		//return that value
+		//Take into account the already passed time??????????  Maybe laters.
+		if (this.weaponType == "phaser") {
+			return 1500;
+		} else {
+			return 5000;
+		}
+	}
 }
 
-
-
-
-function calculateTimeToImpact(interaction) {
-	//Determine Distance between both ships
-	//Determine weapon type (and consequently, speed)
-	//Multiply distance by weapon type speed
-	//return that value
-	return 5000;
-}
 
 function calculateImpactChance(interaction) {
 	if (!interaction.isCancelled) {
