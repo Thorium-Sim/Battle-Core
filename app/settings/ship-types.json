@@ -1,7 +1,6 @@
 {
 	"user":
 	{
-		"isUserShip": "yes",
 		"shieldResiliency": 1,
 		"targetingRange": 0,
 		"flightSkill": 0,
@@ -62,8 +61,8 @@
 				"Reactor",
 				"Hull A4",
 				"Life Support",
-				"Life Support"
-				"Hull A5",
+				"Life Support",
+				"Hull A5"
 			]
 		},
 		"weaponsList":
@@ -71,7 +70,6 @@
 	},
 	"Tiny":
 	{
-		"isUserShip": "no",
 		"shieldResiliency": 0.5,
 		"targetingRange": 0.5,
 		"flightSkill": 1,
@@ -107,7 +105,6 @@
 	},
 	"Small":
 	{
-		"isUserShip": "no",
 		"shieldResiliency": 0.75,
 		"targetingRange": 0.75,
 		"flightSkill": 1,
@@ -156,7 +153,6 @@
 	},
 	"Medium":
 	{
-		"isUserShip": "no",
 		"shieldResiliency": 1,
 		"targetingRange": 1,
 		"flightSkill": 1,
@@ -231,7 +227,6 @@
 	},
 	"Large":
 	{
-		"isUserShip": "no",
 		"shieldResiliency": 1.5,
 		"targetingRange": 1.5,
 		"flightSkill": 1,
@@ -310,7 +305,6 @@
 	},
 	"Colossal":
 	{
-		"isUserShip": "no",
 		"shieldResiliency": 1.75,
 		"targetingRange": 1.75,
 		"flightSkill": 1,
@@ -389,7 +383,6 @@
 	},
 	"Station":
 	{
-		"isUserShip": "no",
 		"shieldResiliency": 3,
 		"targetingRange": 2,
 		"flightSkill": 1,
@@ -484,7 +477,6 @@
 	},
 	"Small Asteroid":
 	{
-		"isUserShip": "no",
 		"shieldResiliency": 0,
 		"targetingRange": 0,
 		"flightSkill": 0,
@@ -510,7 +502,6 @@
 	},
 	"Asteroid":
 	{
-		"isUserShip": "no",
 		"shieldResiliency": 0,
 		"targetingRange": 0,
 		"flightSkill": 0,
@@ -544,7 +535,6 @@
 	},
 	"Large Asteroid":
 	{
-		"isUserShip": "no",
 		"shieldResiliency": 0,
 		"targetingRange": 0,
 		"flightSkill": 0,
@@ -583,5 +573,5 @@
 		},
 		"weaponsList":
 		{}
-	},
+	}
 }

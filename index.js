@@ -17,17 +17,17 @@ module.exports.clientId = clientId;
 if (useBonjour) {
 	console.log("Activating bonjour browser...");
 	getThoriumAddress()
-	    .then(({ address, port, name }) => {
-	        graphQLClient = getClient(address, port, clientId);
-	        console.log("Found Thorium server:");
-	        console.log(`Address: ${address}:${port} ${name}`);
+		.then(({ address, port, name }) => {
+			graphQLClient = getClient(address, port, clientId);
+			console.log("Found Thorium server:");
+			console.log(`Address: ${address}:${port} ${name}`);
 
-	        startApp(address, port, clientId);
-	    })
-	    .catch(err => {
-	        console.error("An error occured");
-	        console.error(err);
-	    });
+			startApp(address, port, clientId);
+		})
+		.catch(err => {
+			console.error("An error occured");
+			console.error(err);
+		});
 } else {
 	graphQLClient = getClient(serverAddress, serverPort, clientId);
 	console.log("Found Thorium server:");
@@ -35,3 +35,8 @@ if (useBonjour) {
 
 	startApp(serverAddress, serverPort, clientId);
 }
+
+
+setTimeout(function() {
+	//startApp.App.emit("FD_weaponsFire")
+}, 3000)

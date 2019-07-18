@@ -36,14 +36,6 @@ subscription ThrustersUpdate($simulatorId: ID!) {
       roll
     }
     manualThrusters
-    power {
-      power
-      powerLevels
-    }
-    damage {
-      damaged
-      destroyed
-    }
     rotationSpeed
     movementSpeed
   }
@@ -89,7 +81,7 @@ function subscribe() {
       theObservable = observable;
       observable.subscribe(
         ({ data }) => {
-          App.emit("thrusterChange", data);
+          App.emit("thrusterChange", data.rotationChange);
         },
         error => {
           console.log("Error: ", error);

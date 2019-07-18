@@ -8,19 +8,21 @@ const uuid = require('uuid/v4')
 
 let ship = require('./classes/ship')
 let interaction = require('./classes/interaction')
-
 let weapon = new(require('./classes/weapon'))
 
 var currentStation = "";
 var currentSimId = "";
-
 var shipList = {
   "user": new ship("user")
 }
+var eventList = []
 var interactionList = {}
-
 var prevTorpedoObj = {}
 var prevPhaserObj = {}
+
+shipList["user"].setType("user")
+
+
 
 module.exports = (address, port, clientId) => {
   console.log("Starting app...");
@@ -31,7 +33,6 @@ module.exports = (address, port, clientId) => {
   // Register this app with Thorium as a client
   registerClient();
   console.log("Registered Client");
-
 
   // Grab the client object to instantiate it
   const client = require("./thorium-components/client");
@@ -105,8 +106,12 @@ module.exports = (address, port, clientId) => {
   //Instantiate the thruster object
   const thrusters = require("./thorium-components/thrusters");
   App.on("thrusterChange", thrusterObj => {
-    //Updates all user related interactions
-    console.log("thrusterChange", thrusterObj)
+    //console.log("thrusterChange", thrusterObj)
+    for (let x in interactionList) {
+      if ((interactionList[x].getDestinationShip()).getID() == "user") {
+        interactionList[x].addThrusterAdjustment(thrusterObj.direction)
+      }
+    }
   });
 
   //Instantiate the sensor object
@@ -121,7 +126,9 @@ module.exports = (address, port, clientId) => {
       let ship_id = sensorContactObj[x].id
       if (!shipList[ship_id]) {
         shipList[ship_id] = new ship(ship_id)
-        //assign types from static file history
+        //assign types from static file history or just by the default if one is not found
+        shipList[ship_id].setType("Medium")
+        shipList[sensorContactObj[x].id].setPosition(sensorContactObj[x].destination)
       } else {
         //console.log(sensorContactObj[x].id)
         shipList[sensorContactObj[x].id].setExists(true)
@@ -139,13 +146,13 @@ module.exports = (address, port, clientId) => {
   //Instantiate the shield object
   const shields = require("./thorium-components/shields");
   App.on("shieldChange", shieldObj => {
+    //console.log("shieldChange", shieldObj)
     for (let x = 0; x < shieldObj.length; x++) {
       shipList["user"].raiseShields(shieldObj[x].name, shieldObj[x].state);
       shipList["user"].setShieldIntegrity(shieldObj[x].name, shieldObj[x].integrity);
       //Maybe at some point in time, make it so shield frequency is
       //more and less effective against different weapons / phaser arcs?
     }
-    //console.log("shieldChange", shieldObj)
   });
 
   //Instantiate the targeting object
@@ -160,10 +167,23 @@ module.exports = (address, port, clientId) => {
   });
 
 
-  /* Mutations */
-  //Instantiate the sensorInfo object
 
-  /*
+  const sensorsInfo = require("./thorium-components/sensorsInfo");
+  App.on("newInteraction", interactionClass => {
+    if ((interactionClass.getDestinationShip()).getID() == "user") {
+      let timeToImpact = Math.round(interactionClass.calculateTimeToImpact() / 100) / 10
+      if (timeToImpact > 2) {
+        sensorsInfo.send("Incoming " + interactionClass.getWeaponType() + " fire!  Impact in " + timeToImpact + " seconds", true)
+      } else {
+        sensorsInfo.send(interactionClass.getWeaponType() + " impact detected", true)
+      }
+    }
+  });
+
+  App.on("interactionResult", interactionObj => {
+    delete interactionList[interactionObj.interactionId]
+    console.log(interactionObj)
+    /*
     //Shields already instantiated, we call it here
     setTimeout(function() {
       shields.hit(shieldIds["Fore"])
@@ -178,29 +198,62 @@ module.exports = (address, port, clientId) => {
       shields.hit(shieldIds["Starboard"])
     }, 4000)
     */
-
-
-
-  App.on("interactionResult", interactionObj => {
-    delete interactionList[interactionObj.interactionId]
-    console.log(interactionObj)
   });
 
-  const sensorsInfo = require("./thorium-components/sensorsInfo");
-  App.on("newInteraction", interactionClass => {
-    if ((interactionClass.getDestinationShip()).getID() == "user") {
-      let timeToImpact = Math.round(interactionClass.calculateTimeToImpact() / 100) / 10
-      if (timeToImpact > 2) {
-        sensorsInfo.send("Incoming " + interactionClass.getWeaponType() + " fire!  Impact in " + timeToImpact + " seconds", true)
-      } else {
-        sensorsInfo.send(interactionClass.getWeaponType() + " impact detected", true)
-      }
-    }
-  });
 
+
+
+  App.on("FD_typeChange", appObj => {
+    shipList[appObj.id].setType(appObj.type)
+    //Also add something in here that saves it to a static file, so it can
+    //be pulled up later without having to set the ship type again.
+  })
+
+  App.on("FD_skillChange", appObj => {
+    shipList[appObj.id].setFlightSkill(appObj.flightSkillLevel)
+    shipList[appObj.id].setWeaponsSkill(appObj.weaponsSkillLevel)
+    //Also add something in here that saves it to a static file, so it can
+    //be pulled up later without having to set the ship type again.
+  })
+
+  App.on("FD_newTarget", appObj => {
+    shipList[appObj.id].setTargetedContact(appObj.targetedId)
+  })
+
+  App.on("FD_shields", appObj => {
+    if (appObj.foreRaised) { shipList[appObj.id].raiseShields("fore", appObj.foreRaised) }
+    if (appObj.portRaised) { shipList[appObj.id].raiseShields("port", appObj.portRaised) }
+    if (appObj.starboardRaised) { shipList[appObj.id].raiseShields("starboard", appObj.starboardRaised) }
+    if (appObj.aftRaised) { shipList[appObj.id].raiseShields("aft", appObj.aftRaised) }
+
+    if (appObj.foreIntegrity) { shipList[appObj.id].setShieldIntegrity("fore", appObj.foreIntegrity) }
+    if (appObj.portIntegrity) { shipList[appObj.id].setShieldIntegrity("port", appObj.portIntegrity) }
+    if (appObj.starboardIntegrity) { shipList[appObj.id].setShieldIntegrity("starboard", appObj.starboardIntegrity) }
+    if (appObj.aftIntegrity) { shipList[appObj.id].setShieldIntegrity("aft", appObj.aftIntegrity) }
+  })
+
+  App.on("FD_weaponsFire", appObj => {
+    let interaction_id = uuid()
+    interactionList[interaction_id] = new interaction(interaction_id, shipList[appObj.originationId], shipList[shipList[appObj.originationId].getTargetedContact()], appObj.weaponType)
+  })
+
+  App.on("FD_damagedSystems", appObj => {
+
+  })
+
+
+
+  setTimeout(() => {
+    let interaction_id = uuid()
+    interactionList[interaction_id] = new interaction(interaction_id, shipList[shipList["user"].getTargetedContact()], shipList["user"], "photon")
+  }, 2000)
 
 
 
 
 };
 module.exports.App = App;
+
+module.exports.shipList = shipList
+module.exports.interactionList = interactionList
+module.exports.eventList = eventList

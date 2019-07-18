@@ -2,7 +2,6 @@ module.exports = class Ship {
 	constructor(ID_) {
 		this.ID = ID_;
 		this.type = "none"
-		const fs = require('fs')
 
 		this.targetedContact = ""
 		this.shieldsOnOff = {
@@ -21,17 +20,23 @@ module.exports = class Ship {
 		this.weaponsSkill = 1
 		this.damagedSystems = {}
 		this.exists = true
+		this.position = {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		}
 
 		this.shipInfo = {}
 	}
 
 
 	setType(type_) {
+		const fs = require('fs')
 		this.type = type_;
-		fs.readSync('../settings/ship-types.json', 'utf8', function(err, data) {
+		fs.readFile('./app/settings/ship-types.json', 'utf8', (err, data) => {
 			if (err) throw err;
 			try {
-				data = JSON.stringify(data)
+				data = JSON.parse(data)
 				this.shipInfo = JSON.parse(JSON.stringify(data[type_]))
 				for (let side in data[type_].systemsList) {
 					for (let system in data[type_].systemsList[side]) {
@@ -46,11 +51,18 @@ module.exports = class Ship {
 			}
 		})
 	}
+	setPosition(positionObj) {
+		this.position = positionObj
+	}
+	getPosition(positionObj) {
+		return this.position
+	}
 	setTargetedContact(shipId) {
 		this.targetedContact = shipId
 	}
 	raiseShields(type, TF) {
-		if (!this.shieldsOnOff[type]) {
+		type = type.toLowerCase();
+		if (this.shieldsOnOff[type] === undefined || this.shieldsOnOff[type] === null) {
 			return "invalid shield type"
 		}
 		if (TF) {
@@ -89,15 +101,16 @@ module.exports = class Ship {
 
 	getID() { return this.ID; }
 	getTargetedContact() { return this.targetedContact; }
-	getIsUserShip() { return this.shipInfo[isUserShip] }
-	getShieldResiliency() { return this.shipInfo[shieldResiliency] }
-	getTargetingRange() { return this.shipInfo[targetingRange] }
+	getIsUserShip() { return (this.type == "user") }
+	getShieldResiliency() { return this.shipInfo["shieldResiliency"] }
+	getShieldsUp(type) { return this.shieldsOnOff[type] }
+	getTargetingRange() { return this.shipInfo["targetingRange"] }
 	getFlightSkill() { return this.shipInfo[this.flightSkill] }
-	getThrusterEffectivenessAdjustment() { return this.shipInfo[thrusterEffectivenessAdjustment] }
+	getThrusterEffectivenessAdjustment() { return this.shipInfo["thrusterEffectivenessAdjustment"] }
 	getWeaponsSkill() { return this.shipInfo[this.weaponsSkill] }
-	getSystemsList() { return this.shipInfo[systemsList] }
+	getSystemsList() { return this.shipInfo["systemsList"] }
 	getSystemsDamage() { return this.damagedSystems }
-	getWeaponsList() { return this.shipInfo[weaponsList] }
+	getWeaponsList() { return this.shipInfo["weaponsList"] }
 	getExists() { return this.exists }
 
 }

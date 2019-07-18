@@ -1,29 +1,41 @@
 {
-	"Laser":
+	"laser":
 	{
 		"damageValue": 0.25,
 		"secondsToImpactAtMaxDistance": 0,
 		"thrusterHitChanceReductionRate": 0
 	},
-	"Phaser":
+	"phaser":
 	{
-		"damageValue": 1,
+		"damageValue": 2,
 		"secondsToImpactAtMaxDistance": 1,
 		"thrusterHitChanceReductionRate": 0
 	},
-	"Low Yield":
+	"low yield":
 	{
 		"damageValue": 2,
 		"secondsToImpactAtMaxDistance": 12,
 		"thrusterHitChanceReductionRate": 0.111
 	},
-	"High Yield":
+	"photon":
+	{
+		"damageValue": 2,
+		"secondsToImpactAtMaxDistance": 12,
+		"thrusterHitChanceReductionRate": 0.111
+	},
+	"high yield":
 	{
 		"damageValue": 3,
 		"secondsToImpactAtMaxDistance": 16,
 		"thrusterHitChanceReductionRate": 0.143
 	},
-	"Special":
+	"quantum":
+	{
+		"damageValue": 3,
+		"secondsToImpactAtMaxDistance": 16,
+		"thrusterHitChanceReductionRate": 0.143
+	},
+	"special":
 	{
 		"damageValue": 4,
 		"secondsToImpactAtMaxDistance": 20,
