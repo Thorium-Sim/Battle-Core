@@ -107,6 +107,7 @@ function calculateImpact(interaction) {
 				Math.abs(interaction.lastThrusterUpdate.x * Math.sin(angle)) +
 				Math.abs(interaction.lastThrusterUpdate.z * .5) //Opposite on purpose
 		} else {
+			// console.log(interaction.destinationShip.getFlightSkill(), weapon.getSecondsToImpactAtMaxDistance(interaction.weaponType), .5)
 			thrusterOrthogonality = interaction.destinationShip.getFlightSkill() * weapon.getSecondsToImpactAtMaxDistance(interaction.weaponType) * .5
 		}
 
@@ -122,6 +123,8 @@ function calculateImpact(interaction) {
 
 		//Determine the targeted system.  If it's any system on the impact sides, it automatically gets hit in that area
 		//If general, or if targeted system does not exist, then roll random to determine impact side, and roll random to determine hit system
+
+		// console.log(thrusterOrthogonality, thrusterEffectiveness, chanceForSuccessfulHit, isHit)
 
 		if (isHit) {
 			/*

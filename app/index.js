@@ -21,6 +21,7 @@ var prevTorpedoObj = {}
 var prevPhaserObj = {}
 
 shipList["user"].setType("user")
+shipList["user"].setName("user")
 
 
 
@@ -128,6 +129,7 @@ module.exports = (address, port, clientId) => {
         shipList[ship_id] = new ship(ship_id)
         //assign types from static file history or just by the default if one is not found
         shipList[ship_id].setType("Medium")
+        shipList[ship_id].setName(sensorContactObj[x].name)
         shipList[sensorContactObj[x].id].setPosition(sensorContactObj[x].destination)
       } else {
         //console.log(sensorContactObj[x].id)
@@ -170,6 +172,7 @@ module.exports = (address, port, clientId) => {
 
   const sensorsInfo = require("./thorium-components/sensorsInfo");
   App.on("newInteraction", interactionClass => {
+    if (interactionClass.getDestinationShip() == "") { return; }
     if ((interactionClass.getDestinationShip()).getID() == "user") {
       let timeToImpact = Math.round(interactionClass.calculateTimeToImpact() / 100) / 10
       if (timeToImpact > 2) {
@@ -241,19 +244,50 @@ module.exports = (address, port, clientId) => {
 
   })
 
-
-
-  setTimeout(() => {
-    let interaction_id = uuid()
-    interactionList[interaction_id] = new interaction(interaction_id, shipList[shipList["user"].getTargetedContact()], shipList["user"], "photon")
-  }, 2000)
-
-
+  // setTimeout(() => {
+  //   let interaction_id = uuid()
+  //   interactionList[interaction_id] = new interaction(interaction_id, shipList[shipList["user"].getTargetedContact()], shipList["user"], "photon")
+  // }, 2000)
 
 
 };
 module.exports.App = App;
 
-module.exports.shipList = shipList
-module.exports.interactionList = interactionList
-module.exports.eventList = eventList
+
+
+var http = require('http');
+var url = require('url');
+
+http.createServer(function(req, res) {
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  var q = url.parse(req.url, true).query;
+  let result = ""
+  switch (q.doWhat) {
+    case "getCurrentContacts":
+      for (let x in shipList) {
+        result += (shipList[x].getName() + ":" + x + "\n")
+      }
+      break;
+    case "getCurrentTargetedContact":
+
+      result = shipList[q.shipId].getTargetedContact()
+      if (result != "") {
+      result += "\n" + shipList[shipList[q.shipId].getTargetedContact()].getName()
+      }
+    break;
+    case "FD_newTarget":
+      App.emit("FD_newTarget", q);
+      // id
+      // targetedId
+      break;
+    case "FD_weaponsFire":
+      App.emit("FD_weaponsFire", q);
+      //originationId
+      //weaponType
+      break;
+    default:
+      break
+  }
+  res.write(result);
+  res.end()
+}).listen(8080);

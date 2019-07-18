@@ -20,6 +20,7 @@ module.exports = class Ship {
 		this.weaponsSkill = 1
 		this.damagedSystems = {}
 		this.exists = true
+		this.name = ""
 		this.position = {
 			"x": 0,
 			"y": 0,
@@ -53,6 +54,12 @@ module.exports = class Ship {
 	}
 	setPosition(positionObj) {
 		this.position = positionObj
+	}
+	setName(name_) {
+		this.name = name_
+	}
+	getName() {
+		return this.name
 	}
 	getPosition(positionObj) {
 		return this.position
@@ -105,7 +112,7 @@ module.exports = class Ship {
 	getShieldResiliency() { return this.shipInfo["shieldResiliency"] }
 	getShieldsUp(type) { return this.shieldsOnOff[type] }
 	getTargetingRange() { return this.shipInfo["targetingRange"] }
-	getFlightSkill() { return this.shipInfo[this.flightSkill] }
+	getFlightSkill() { return this.shipInfo["flightSkill"] }
 	getThrusterEffectivenessAdjustment() { return this.shipInfo["thrusterEffectivenessAdjustment"] }
 	getWeaponsSkill() { return this.shipInfo[this.weaponsSkill] }
 	getSystemsList() { return this.shipInfo["systemsList"] }
